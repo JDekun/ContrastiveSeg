@@ -49,6 +49,7 @@ if [ "$1"x == "train"x ]; then
                        --distributed \
                        --train_batch_size ${BATCH_SIZE} \
                        --base_lr ${BASE_LR} \
+                       --workers 0 \
                        2>&1 | tee ${LOG_FILE}
                        
 
