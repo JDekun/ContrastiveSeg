@@ -42,7 +42,8 @@ def handle_distributed(args, main_file):
 
     # current_env['WORLD_SIZE'] = str(world_size)
 
-    print('World size:', world_size)
+    # print('World size:', world_size)
+    
     # Logic for spawner
     python_exec = sys.executable
     command_args = sys.argv
