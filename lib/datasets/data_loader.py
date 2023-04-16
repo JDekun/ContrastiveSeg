@@ -135,7 +135,7 @@ class DataLoader(object):
         trainloader = data.DataLoader(
             loader,
             batch_size=self.configer.get('train', 'batch_size') // get_world_size(), pin_memory=True,
-            num_workers=self.configer.get('data', 'workers') // get_world_size(),
+            num_workers=self.configer.get('data', 'workers') ,
             sampler=sampler,
             shuffle=(sampler is None),
             drop_last=self.configer.get('data', 'drop_last'),

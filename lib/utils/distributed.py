@@ -34,16 +34,15 @@ def handle_distributed(args, main_file):
         return
 
     current_env = os.environ.copy()
-    # if current_env.get('CUDA_VISIBLE_DEVICES') is None:
-    #     current_env['CUDA_VISIBLE_DEVICES'] = ','.join(map(str, args.gpu))
-    #     world_size = len(args.gpu)
-    # else:
-    #     world_size = len(current_env['CUDA_VISIBLE_DEVICES'].split(','))
+    if current_env.get('CUDA_VISIBLE_DEVICES') is None:
+        current_env['CUDA_VISIBLE_DEVICES'] = ','.join(map(str, args.gpu))
+        world_size = len(args.gpu)
+    else:
+        world_size = len(current_env['CUDA_VISIBLE_DEVICES'].split(','))
 
-    # current_env['WORLD_SIZE'] = str(world_size)
+    current_env['WORLD_SIZE'] = str(world_size)
 
-    # print('World size:', world_size)
-    
+    print('World size:', world_size)
     # Logic for spawner
     python_exec = sys.executable
     command_args = sys.argv
