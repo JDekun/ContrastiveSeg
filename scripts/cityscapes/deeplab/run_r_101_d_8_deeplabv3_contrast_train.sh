@@ -3,7 +3,8 @@ SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd $SCRIPTPATH
 cd ../../../
 
-DATE = "$(date +%Y-%m%d-%H%M%S)"
+name_date="$(date +%Y-%m%d-%H%M%S)"
+DATE = "$(date + %Y-%m%d-%H%M%S)"
 DATA_ROOT=../../input
 ASSET_ROOT=${DATA_ROOT}
 
@@ -24,7 +25,7 @@ BASE_LR=0.01
 DATA_DIR="${DATA_ROOT}/openseg-cityscapes-gtfine"
 SAVE_DIR="./result/cityscapes/seg_results"
 CHECKPOINTS_ROOT="./result/cityscapes/checkpoints/"
-CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_${DATE}"
+CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_${name_date}"
 LOG_FILE="./logs/Cityscapes/${CHECKPOINTS_NAME}.log"
 echo "Logging to $LOG_FILE"
 mkdir -p `dirname $LOG_FILE`
