@@ -13,6 +13,13 @@ import torch.backends.cudnn as cudnn
 from lib.utils.tools.configer import Configer
 from lib.utils.tools.logger import Logger as Log
 
+# import debugpy; debugpy.connect(('10.59.139.1', 5678))
+
+# import sys
+# root_path = os.path.abspath(__file__)
+# root_path = '/'.join(root_path.split('/')[:-1])
+# sys.path.append(root_path)
+
 
 def str2bool(v):
     """ Usage:
