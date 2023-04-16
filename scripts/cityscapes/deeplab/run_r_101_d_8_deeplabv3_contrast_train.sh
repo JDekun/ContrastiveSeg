@@ -3,29 +3,32 @@ SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd $SCRIPTPATH
 cd ../../../
 
-DATA_ROOT=$3
-SCRATCH_ROOT=$4
+DATE = $(date +%Y-%m%d-%H%M%S)
+DATA_ROOT=../../input
 ASSET_ROOT=${DATA_ROOT}
 
-DATA_DIR="${DATA_ROOT}/Cityscapes"
-SAVE_DIR="${SCRATCH_ROOT}/seg_results/cityscapes"
-BACKBONE="deepbase_resnet101_dilated8"
-
+# 配置文件
 CONFIGS="configs/cityscapes/R_101_D_8.json"
 CONFIGS_TEST="configs/cityscapes/R_101_D_8_TEST.json"
 
+# 参数
+BACKBONE="deepbase_resnet101_dilated8"
 MODEL_NAME="deeplab_v3_contrast"
 LOSS_TYPE="contrast_auxce_loss"
-CHECKPOINTS_ROOT="${SCRATCH_ROOT}/Cityscapes/"
-CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_"$2
-LOG_FILE="${SCRATCH_ROOT}/logs/Cityscapes/${CHECKPOINTS_NAME}.log"
+PRETRAINED_MODEL="${DATA}/pre-trained/resnet101-imagenet-openseg.pth"
+MAX_ITERS=40000
+BATCH_SIZE=$2
+BASE_LR=0.01
+
+# 训练结果保存设置
+DATA_DIR="${DATA_ROOT}/openseg-cityscapes_gtfine"
+SAVE_DIR="./result/cityscapes/seg_results"
+CHECKPOINTS_ROOT="./result/cityscapes/checkpoints/"
+CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_${DATE}"
+LOG_FILE="./logs/Cityscapes/${CHECKPOINTS_NAME}.log"
 echo "Logging to $LOG_FILE"
 mkdir -p `dirname $LOG_FILE`
 
-PRETRAINED_MODEL="${ASSET_ROOT}/resnet101-imagenet.pth"
-MAX_ITERS=40000
-BATCH_SIZE=8
-BASE_LR=0.01
 
 if [ "$1"x == "train"x ]; then
   python -u main_contrastive.py --configs ${CONFIGS} \
@@ -36,7 +39,7 @@ if [ "$1"x == "train"x ]; then
                        --log_to_file n \
                        --backbone ${BACKBONE} \
                        --model_name ${MODEL_NAME} \
-                       --gpu 0 1 2 3 \
+                       --gpu 0 1 \
                        --data_dir ${DATA_DIR} \
                        --loss_type ${LOSS_TYPE} \
                        --max_iters ${MAX_ITERS} \
