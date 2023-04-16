@@ -143,7 +143,10 @@ class PixelContrastLoss(nn.Module, ABC):
 
         feats_, labels_ = self._hard_anchor_sampling(feats, labels, predict)
 
-        loss = self._contrastive(feats_, labels_)
+        if feats_ != None:
+            loss = self._contrastive(feats_, labels_)
+        else:
+            loss = 0
         return loss
 
 
