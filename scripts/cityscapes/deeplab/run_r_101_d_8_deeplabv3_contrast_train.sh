@@ -3,7 +3,7 @@ SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd $SCRIPTPATH
 cd ../../../
 
-DATETIME= date +%Y-%m%d-%H%M%S
+DATETIME= "date +%Y-%m%d-%H%M%S"
 DATA_ROOT=../../input
 ASSET_ROOT=${DATA_ROOT}
 
