@@ -3,7 +3,7 @@ SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd $SCRIPTPATH
 cd ../../../
 
-name_date= date +%Y-%m%d-%H%M%S
+DATETIME= date +%Y-%m%d-%H%M%S
 DATA_ROOT=../../input
 ASSET_ROOT=${DATA_ROOT}
 
@@ -24,7 +24,7 @@ BASE_LR=0.01
 DATA_DIR="${DATA_ROOT}/openseg-cityscapes-gtfine"
 SAVE_DIR="./result/cityscapes/seg_results"
 CHECKPOINTS_ROOT="./result/cityscapes/checkpoints/"
-CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_${name_date}"
+CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_${DATETIME}"
 LOG_FILE="./logs/Cityscapes/${CHECKPOINTS_NAME}.log"
 echo "Logging to $LOG_FILE"
 mkdir -p `dirname $LOG_FILE`
@@ -49,7 +49,7 @@ if [ "$1"x == "train"x ]; then
                        --distributed \
                        --train_batch_size ${BATCH_SIZE} \
                        --base_lr ${BASE_LR} \
-                       --workers 0 \
+                       --workers 2 \
                        2>&1 | tee ${LOG_FILE}
                        
 
