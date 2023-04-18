@@ -3,7 +3,6 @@ SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd $SCRIPTPATH
 cd ../../../
 
-DATETIME= "date +%Y-%m%d-%H%M%S"
 DATA_ROOT=../../input
 ASSET_ROOT=${DATA_ROOT}
 
@@ -17,14 +16,15 @@ MODEL_NAME="deeplab_v3_contrast"
 LOSS_TYPE="contrast_auxce_loss"
 PRETRAINED_MODEL="${DATA_ROOT}/pre-trained/resnet101-imagenet-openseg.pth"
 MAX_ITERS=40000
-BATCH_SIZE=$2
+BATCH_SIZE_TRAIN=$2
+BATCH_SIZE_VAL=$3
 BASE_LR=0.01
 
 # 训练结果保存设置
 DATA_DIR="${DATA_ROOT}/openseg-cityscapes-gtfine"
 SAVE_DIR="./result/cityscapes/seg_results"
 CHECKPOINTS_ROOT="./result/cityscapes/checkpoints/"
-CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_${DATETIME}"
+CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_"
 LOG_FILE="./logs/Cityscapes/${CHECKPOINTS_NAME}.log"
 echo "Logging to $LOG_FILE"
 mkdir -p `dirname $LOG_FILE`
@@ -47,8 +47,9 @@ if [ "$1"x == "train"x ]; then
                        --checkpoints_name ${CHECKPOINTS_NAME} \
                        --pretrained ${PRETRAINED_MODEL} \
                        --distributed \
-                       --train_batch_size ${BATCH_SIZE} \
                        --base_lr ${BASE_LR} \
+                       --train_batch_size ${BATCH_SIZE_TRAIN} \
+                       --val_batch_size ${BATCH_SIZE_VAL}\
                        --workers 2 \
                        2>&1 | tee ${LOG_FILE}
                        

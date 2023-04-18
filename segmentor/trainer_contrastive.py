@@ -269,13 +269,13 @@ class Trainer(object):
             # Print the log info & reset the states.
             if self.configer.get('iters') % self.configer.get('solver', 'display_iter') == 0 and \
                     (not is_distributed() or get_rank() == 0):
-                Log.info('Train Epoch: {0}\tTrain Iteration: {1}\t'
-                         'Time {batch_time.sum:.3f}s / {2}iters, ({batch_time.avg:.3f})\t'
-                         'Forward Time {foward_time.sum:.3f}s / {2}iters, ({foward_time.avg:.3f})\t'
-                         'Backward Time {backward_time.sum:.3f}s / {2}iters, ({backward_time.avg:.3f})\t'
-                         'Loss Time {loss_time.sum:.3f}s / {2}iters, ({loss_time.avg:.3f})\t'
-                         'Data load {data_time.sum:.3f}s / {2}iters, ({data_time.avg:3f})\n'
-                         'Learning rate = {3}\tLoss = {loss.val:.8f} (ave = {loss.avg:.8f})\n'.format(
+                Log.info('Train Epoch:{0} Iteration:{1} '
+                         'Time:{batch_time.sum:.3f}s '
+                         'Forward:{foward_time.sum:.3f}s '
+                         'Backward:{backward_time.sum:.3f}s '
+                         'Loss:{loss_time.sum:.3f}s '
+                         'Data:{data_time.sum:.3f}s\n'
+                         'Lr = {3} Loss = {loss.val:.8f} (ave = {loss.avg:.8f})\n'.format(
                     self.configer.get('epoch'), self.configer.get('iters'),
                     self.configer.get('solver', 'display_iter'),
                     self.module_runner.get_lr(self.optimizer), batch_time=self.batch_time,
