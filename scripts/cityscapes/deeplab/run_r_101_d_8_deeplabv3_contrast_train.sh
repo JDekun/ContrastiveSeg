@@ -24,7 +24,7 @@ BASE_LR=0.01
 DATA_DIR="${DATA_ROOT}/openseg-cityscapes-gtfine"
 SAVE_DIR="./result/cityscapes/seg_results"
 CHECKPOINTS_ROOT="./result/cityscapes/checkpoints/"
-CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_"
+CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_$(date +%F_%H-%M-%S)"
 LOG_FILE="./logs/Cityscapes/${CHECKPOINTS_NAME}.log"
 echo "Logging to $LOG_FILE"
 mkdir -p `dirname $LOG_FILE`

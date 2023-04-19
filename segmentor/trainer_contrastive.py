@@ -275,9 +275,8 @@ class Trainer(object):
                          'Backward:{backward_time.sum:.3f}s '
                          'Loss:{loss_time.sum:.3f}s '
                          'Data:{data_time.sum:.3f}s\n'
-                         'Lr = {3} Loss = {loss.val:.8f} (ave = {loss.avg:.8f})\n'.format(
+                         'Lr = {2} Loss = {loss.val:.8f} (ave = {loss.avg:.8f})\n'.format(
                     self.configer.get('epoch'), self.configer.get('iters'),
-                    self.configer.get('solver', 'display_iter'),
                     self.module_runner.get_lr(self.optimizer), batch_time=self.batch_time,
                     foward_time=self.foward_time, backward_time=self.backward_time, loss_time=self.loss_time,
                     data_time=self.data_time, loss=self.train_losses))
